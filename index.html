@@ -1,21 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>My Recharge App</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>My Recharge App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <div class="app">
+    
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    
+    <!-- Sidebar Menu -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar__header">
+        <div class="sidebar__profile">
+          <div class="sidebar__avatar">
+            <svg viewBox="0 0 24 24" fill="none" width="24" height="24">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="sidebar__user-info">
+            <h4>My Account</h4>
+            <p>+91 9876543210</p>
+          </div>
+        </div>
+        <button class="icon-btn ghost-icon-btn" id="closeSidebarBtn" aria-label="Close menu" type="button">
+          <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <nav class="sidebar__nav">
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>My Account</span>
+        </a>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7m9-3l-3 3-3-3m3 3V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Balance</span>
+        </a>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>History</span>
+        </a>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 2v20m5-17H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Cashback</span>
+        </a>
+        <a href="#" class="sidebar__link">
+          <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.8 1 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Settings</span>
+        </a>
+      </nav>
+    </aside>
 
     <!-- Header -->
     <header class="topbar">
       <div class="topbar__brand">
+        <!-- Hamburger Menu Button -->
+        <button class="icon-btn ghost-icon-btn" id="menuBtn" aria-label="Menu" type="button" style="margin-right: 8px;">
+          <svg viewBox="0 0 24 24" fill="none" width="22" height="22">
+            <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
         <span class="logo-slot">
           <img src="logo.jpg" alt="" class="logo-slot__img">
         </span>
@@ -29,13 +81,11 @@
         <span class="icon-btn__dot"></span>
       </button>
     </header>
-
+    
     <main class="scroll-area">
-
       <!-- Wallet Balance -->
       <section class="balance-card" aria-label="Wallet balance">
         <div class="balance-card__glow"></div>
-
         <div class="balance-card__top">
           <span class="balance-card__label">My Balance</span>
           <button class="balance-card__eye" id="balanceEyeBtn" aria-label="Hide balance" type="button">
@@ -45,15 +95,13 @@
             </svg>
           </button>
         </div>
-
-        <div class="balance-card__amount" id="balanceAmount">₹2,450.75</div>
-
+        <div class="balance-card__amount" id="balanceAmount">₹ 2,450.75</div>
         <div class="balance-card__footer">
           <span class="commission-badge">
             <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
               <path d="M12 3l1.9 4.1 4.4.5-3.3 3 .9 4.4L12 12.9 8.1 15l.9-4.4-3.3-3 4.4-.5L12 3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
             </svg>
-            commission · upto 3% guaranteed
+            commission upto 3% guaranteed
           </span>
         </div>
       </section>
@@ -72,7 +120,7 @@
           <article class="banner banner--plan">
             <div class="banner__copy">
               <p class="banner__tag">New</p>
-              <h2 class="banner__title">₹499 plan now<br>with 2× data</h2>
+              <h2 class="banner__title">₹ 499 plan now<br>with 2GB data</h2>
               <p class="banner__sub">Valid for all prepaid operators</p>
             </div>
             <div class="banner__glow"></div>
@@ -80,7 +128,7 @@
           <article class="banner banner--refer">
             <div class="banner__copy">
               <p class="banner__tag">Refer & earn</p>
-              <h2 class="banner__title">Give ₹50,<br>get ₹50</h2>
+              <h2 class="banner__title">Give ₹ 50,<br>get ₹ 50</h2>
               <p class="banner__sub">Invite friends to the app</p>
             </div>
             <div class="banner__glow"></div>
@@ -92,7 +140,6 @@
       <!-- Recharge Input Section -->
       <section class="recharge-card" aria-label="Enter mobile number">
         <label class="field-label" for="mobileNumber">Mobile number</label>
-
         <div class="input-shell" id="inputShell">
           <span class="country-chip">
             <span class="country-chip__flag">🇮🇳</span>
@@ -115,9 +162,7 @@
             </svg>
           </button>
         </div>
-
         <p class="field-hint" id="fieldHint">We'll detect your operator and circle automatically</p>
-
         <div class="detected-row" id="detectedRow" hidden>
           <span class="detected-pill">
             <span class="detected-dot"></span>
@@ -132,7 +177,6 @@
           <h3>Choose your operator</h3>
           <span class="section-heading__hint">or let us auto-detect</span>
         </div>
-
         <div class="operator-grid" id="operatorGrid">
           <button class="operator-card" data-operator="Jio" type="button">
             <span class="operator-card__logo">
@@ -141,7 +185,6 @@
             <span class="operator-card__name">Jio</span>
             <span class="operator-card__ring"></span>
           </button>
-
           <button class="operator-card" data-operator="Airtel" type="button">
             <span class="operator-card__logo">
               <img src="airtel.jpg" alt="Airtel logo">
@@ -149,7 +192,6 @@
             <span class="operator-card__name">Airtel</span>
             <span class="operator-card__ring"></span>
           </button>
-
           <button class="operator-card" data-operator="Vi" type="button">
             <span class="operator-card__logo">
               <img src="vi.jpg" alt="Vi logo">
@@ -157,7 +199,6 @@
             <span class="operator-card__name">Vi</span>
             <span class="operator-card__ring"></span>
           </button>
-
           <button class="operator-card" data-operator="BSNL" type="button">
             <span class="operator-card__logo">
               <img src="bsnl.jpg" alt="BSNL logo">
@@ -174,14 +215,12 @@
           <h3>Recharge amount</h3>
           <span class="section-heading__hint">tap a plan or enter your own</span>
         </div>
-
         <div class="amount-chips" id="amountChips">
-          <button class="amount-chip" data-amount="199" type="button">₹199</button>
-          <button class="amount-chip" data-amount="299" type="button">₹299</button>
-          <button class="amount-chip" data-amount="499" type="button">₹499</button>
-          <button class="amount-chip" data-amount="799" type="button">₹799</button>
+          <button class="amount-chip" data-amount="199" type="button">₹ 199</button>
+          <button class="amount-chip" data-amount="299" type="button">₹ 299</button>
+          <button class="amount-chip" data-amount="499" type="button">₹ 499</button>
+          <button class="amount-chip" data-amount="799" type="button">₹ 799</button>
         </div>
-
         <div class="input-shell input-shell--amount" id="amountShell">
           <span class="amount-prefix">₹</span>
           <span class="input-divider"></span>
@@ -194,7 +233,7 @@
           >
         </div>
       </section>
-
+      
       <div class="bottom-spacer"></div>
     </main>
 
@@ -202,7 +241,7 @@
     <footer class="cta-bar">
       <div class="cta-bar__info">
         <span class="cta-bar__label">Total</span>
-        <span class="cta-bar__amount" id="ctaAmount">₹0</span>
+        <span class="cta-bar__amount" id="ctaAmount">₹ 0</span>
       </div>
       <button class="cta-btn" id="rechargeBtn" type="button" disabled>
         <span class="cta-btn__label">Recharge now</span>
@@ -221,9 +260,8 @@
       </span>
       <span id="toastText">Recharge successful</span>
     </div>
-
   </div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
