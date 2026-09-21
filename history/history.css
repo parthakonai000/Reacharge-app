@@ -1,0 +1,1135 @@
+/* ==========================================================
+   MY RECHARGE APP — HISTORY
+   Same design system as index.html + support.html
+   ========================================================== */
+
+:root {
+  --violet-800: #3a1590;
+  --violet-700: #5a24c9;
+  --violet-600: #6d31e0;
+  --violet-500: #8352f0;
+  --violet-200: #d9ccfa;
+  --violet-100: #efe9ff;
+  --violet-50: #f7f4ff;
+
+  --ink: #1d1538;
+  --muted: #6a6383;
+  --line: #e6e0f5;
+
+  --ok: #16a34a;
+  --ok-bg: #dcfce7;
+
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+
+  --warning: #d97706;
+  --warning-bg: #fef3c7;
+
+  --grad:
+    linear-gradient(
+      135deg,
+      #5a20d0 0%,
+      #7c3aed 55%,
+      #9b6bff 100%
+    );
+
+  --shadow-sm:
+    0 2px 8px rgba(76, 29, 149, .08);
+
+  --shadow-md:
+    0 8px 22px -6px rgba(76, 29, 149, .22);
+
+  --shadow-lg:
+    0 16px 28px -14px rgba(58, 21, 144, .65);
+
+  --nav-h: 72px;
+
+  --font:
+    'Poppins',
+    'Open Sans',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+
+/* ==========================================================
+   BASE
+   ========================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+
+body {
+  margin: 0;
+
+  font-family: var(--font);
+
+  color: var(--ink);
+
+  background: #ece7fb;
+
+  line-height: 1.4;
+
+  -webkit-font-smoothing: antialiased;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+button,
+input {
+  font: inherit;
+}
+
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+
+.ico {
+  width: 22px;
+  height: 22px;
+
+  flex: none;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 1.8;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+}
+
+
+/* ==========================================================
+   RIPPLE
+   ========================================================== */
+
+[data-ripple] {
+  position: relative;
+  overflow: hidden;
+}
+
+
+.ripple {
+  position: absolute;
+
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, .45);
+
+  transform: translate(-50%, -50%) scale(0);
+
+  animation: ripple .55s ease-out forwards;
+
+  pointer-events: none;
+}
+
+
+@keyframes ripple {
+
+  to {
+    transform: translate(-50%, -50%) scale(15);
+    opacity: 0;
+  }
+
+}
+
+
+/* ==========================================================
+   APP
+   ========================================================== */
+
+.app {
+  position: relative;
+
+  max-width: 480px;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  margin: 0 auto;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 60px rgba(76, 29, 149, .15);
+
+  padding-bottom:
+    calc(var(--nav-h) + 20px + env(safe-area-inset-bottom));
+}
+
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
+
+.history-topbar {
+  position: relative;
+
+  overflow: hidden;
+
+  padding:
+    calc(env(safe-area-inset-top) + 14px)
+    18px
+    52px;
+
+  color: #fff;
+
+  background: var(--grad);
+
+  border-radius: 0 0 30px 30px;
+
+  box-shadow: var(--shadow-lg);
+}
+
+
+.history-topbar::before {
+  content: "";
+
+  position: absolute;
+
+  top: -80px;
+  right: -60px;
+
+  width: 200px;
+  height: 200px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, .08);
+}
+
+
+.history-topbar__row {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+
+.history-topbar h1 {
+  position: absolute;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+
+  place-items: center;
+
+  color: #fff;
+
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, .16);
+
+  transition:
+    transform .15s ease,
+    background .2s ease;
+}
+
+
+.icon-btn:active {
+  transform: scale(.92);
+
+  background: rgba(255, 255, 255, .28);
+}
+
+
+/* ==========================================================
+   CONTENT
+   ========================================================== */
+
+.history-content {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+
+  margin-top: -30px;
+
+  padding:
+    0
+    16px
+    20px;
+}
+
+
+/* ==========================================================
+   SUMMARY
+   ========================================================== */
+
+.history-summary {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 10px;
+}
+
+
+.summary-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  min-width: 0;
+
+  padding: 12px;
+
+  border: 1px solid var(--line);
+
+  border-radius: 18px;
+
+  background: #fff;
+
+  box-shadow: var(--shadow-sm);
+}
+
+
+.summary-card__icon {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+
+  place-items: center;
+
+  flex: none;
+
+  color: var(--violet-600);
+
+  border-radius: 12px;
+
+  background: var(--violet-100);
+}
+
+
+.summary-card__icon--green {
+  color: var(--ok);
+
+  background: var(--ok-bg);
+}
+
+
+.summary-card__icon .ico {
+  width: 19px;
+  height: 19px;
+}
+
+
+.summary-card span {
+  display: block;
+
+  margin-bottom: 2px;
+
+  font-size: 9.5px;
+
+  color: var(--muted);
+}
+
+
+.summary-card strong {
+  display: block;
+
+  font-size: 16px;
+
+  font-weight: 700;
+}
+
+
+/* ==========================================================
+   SEARCH
+   ========================================================== */
+
+.search-box {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  height: 50px;
+
+  border: 1.5px solid var(--line);
+
+  border-radius: 16px;
+
+  background: #fff;
+
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+
+
+.search-box:focus-within {
+  border-color: var(--violet-600);
+
+  box-shadow:
+    0 0 0 4px rgba(109, 49, 224, .12);
+}
+
+
+.search-box__icon {
+  margin-left: 15px;
+
+  width: 19px;
+  height: 19px;
+
+  color: var(--muted);
+}
+
+
+.search-box input {
+  flex: 1;
+
+  min-width: 0;
+
+  height: 100%;
+
+  padding:
+    0
+    8px
+    0
+    10px;
+
+  color: var(--ink);
+
+  font-size: 13px;
+
+  border: 0;
+
+  outline: 0;
+
+  background: transparent;
+}
+
+
+.search-box input::placeholder {
+  color: #a59eb9;
+}
+
+
+.search-clear {
+  width: 35px;
+  height: 35px;
+
+  display: grid;
+
+  place-items: center;
+
+  margin-right: 7px;
+
+  color: var(--muted);
+
+  border-radius: 10px;
+
+  background: transparent;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity .2s ease,
+    background .2s ease;
+}
+
+
+.search-clear.is-visible {
+  opacity: 1;
+
+  pointer-events: auto;
+}
+
+
+.search-clear:active {
+  background: var(--violet-100);
+}
+
+
+.search-clear .ico {
+  width: 17px;
+  height: 17px;
+}
+
+
+/* ==========================================================
+   FILTERS
+   ========================================================== */
+
+.filter-section {
+  width: 100%;
+
+  overflow: hidden;
+}
+
+
+.filter-scroll {
+  display: flex;
+
+  gap: 8px;
+
+  overflow-x: auto;
+
+  padding: 2px 1px 5px;
+
+  scrollbar-width: none;
+}
+
+
+.filter-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+
+.filter-btn {
+  flex: 0 0 auto;
+
+  padding:
+    8px
+    15px;
+
+  font-size: 11.5px;
+
+  font-weight: 500;
+
+  color: var(--muted);
+
+  border: 1px solid var(--line);
+
+  border-radius: 999px;
+
+  background: #fff;
+
+  transition:
+    color .2s ease,
+    background .2s ease,
+    border-color .2s ease,
+    transform .15s ease;
+}
+
+
+.filter-btn:active {
+  transform: scale(.95);
+}
+
+
+.filter-btn.is-active {
+  color: #fff;
+
+  border-color: transparent;
+
+  background: var(--grad);
+
+  box-shadow:
+    0 5px 12px -7px rgba(109, 49, 224, .8);
+}
+
+
+/* ==========================================================
+   HISTORY SECTION
+   ========================================================== */
+
+.history-heading {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin:
+    2px
+    1px
+    2px;
+}
+
+
+.history-heading h2 {
+  font-size: 15px;
+
+  font-weight: 600;
+}
+
+
+.history-heading p {
+  margin-top: 2px;
+
+  font-size: 10px;
+
+  color: var(--muted);
+}
+
+
+.sort-btn {
+  width: 36px;
+  height: 36px;
+
+  display: grid;
+
+  place-items: center;
+
+  color: var(--violet-600);
+
+  border-radius: 11px;
+
+  background: var(--violet-100);
+
+  transition:
+    transform .15s ease,
+    background .2s ease;
+}
+
+
+.sort-btn:active {
+  transform: scale(.92);
+}
+
+
+.sort-btn .ico {
+  width: 18px;
+  height: 18px;
+}
+
+
+/* ==========================================================
+   HISTORY LIST
+   ========================================================== */
+
+.history-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 9px;
+}
+
+
+.transaction {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 13px;
+
+  border: 1px solid var(--line);
+
+  border-radius: 19px;
+
+  background: #fff;
+
+  box-shadow: var(--shadow-sm);
+
+  transition:
+    transform .18s ease,
+    box-shadow .2s ease;
+}
+
+
+.transaction:active {
+  transform: scale(.985);
+}
+
+
+.transaction__icon {
+  width: 44px;
+  height: 44px;
+
+  display: grid;
+
+  place-items: center;
+
+  flex: none;
+
+  border-radius: 14px;
+}
+
+
+.transaction__icon .ico {
+  width: 22px;
+  height: 22px;
+}
+
+
+/* Recharge */
+.transaction--recharge
+.transaction__icon {
+  color: var(--violet-600);
+
+  background: var(--violet-100);
+}
+
+
+/* Payment */
+.transaction--payment .transaction__icon {
+  color: #d97706;
+
+  background: #fef3c7;
+}
+
+
+/* Add money */
+.transaction--add-money .transaction__icon {
+  color: var(--ok);
+
+  background: var(--ok-bg);
+}
+
+
+.transaction__details {
+  flex: 1;
+
+  min-width: 0;
+}
+
+
+.transaction__title {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  min-width: 0;
+
+  font-size: 12.5px;
+
+  font-weight: 600;
+}
+
+
+.transaction__title span:first-child {
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+
+.transaction__number {
+  margin-top: 2px;
+
+  font-size: 10px;
+
+  color: var(--muted);
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+.transaction__date {
+  margin-top: 2px;
+
+  font-size: 9.5px;
+
+  color: #9992aa;
+}
+
+
+.transaction__right {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 4px;
+
+  flex: none;
+}
+
+
+.transaction__amount {
+  font-size: 14px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+.transaction__amount--plus {
+  color: var(--ok);
+}
+
+
+.transaction__amount--minus {
+  color: var(--ink);
+}
+
+
+.status {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 4px;
+
+  padding:
+    4px
+    7px;
+
+  font-size: 8px;
+
+  font-weight: 600;
+
+  line-height: 1;
+
+  border-radius: 999px;
+}
+
+
+.status::before {
+  content: "";
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+}
+
+
+.status--success {
+  color: #15803d;
+
+  background: var(--ok-bg);
+}
+
+
+.status--success::before {
+  background: #22c55e;
+}
+
+
+.status--pending {
+  color: #b45309;
+
+  background: var(--warning-bg);
+}
+
+
+.status--pending::before {
+  background: #f59e0b;
+}
+
+
+.status--failed {
+  color: #b91c1c;
+
+  background: var(--danger-bg);
+}
+
+
+.status--failed::before {
+  background: #ef4444;
+}
+
+
+/* ==========================================================
+   EMPTY STATE
+   ========================================================== */
+
+.empty-history {
+  padding:
+    30px
+    15px
+    35px;
+
+  text-align: center;
+}
+
+
+.empty-history__image {
+  width: 160px;
+  height: 145px;
+
+  margin: 0 auto 8px;
+}
+
+
+.empty-history__image svg {
+  width: 100%;
+  height: 100%;
+}
+
+
+.empty-history h3 {
+  margin-top: 3px;
+
+  font-size: 16px;
+
+  font-weight: 600;
+}
+
+
+.empty-history p {
+  max-width: 280px;
+
+  margin: 6px auto 0;
+
+  font-size: 11.5px;
+
+  line-height: 1.55;
+
+  color: var(--muted);
+}
+
+
+/* ==========================================================
+   NO SEARCH RESULT
+   ========================================================== */
+
+.no-results {
+  padding: 35px 15px;
+
+  text-align: center;
+
+  color: var(--muted);
+}
+
+
+.no-results__icon {
+  width: 52px;
+  height: 52px;
+
+  display: grid;
+
+  place-items: center;
+
+  margin: 0 auto 10px;
+
+  color: var(--violet-600);
+
+  border-radius: 17px;
+
+  background: var(--violet-100);
+}
+
+
+.no-results__icon .ico {
+  width: 25px;
+  height: 25px;
+}
+
+
+.no-results h3 {
+  margin-bottom: 4px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: var(--ink);
+}
+
+
+.no-results p {
+  font-size: 11px;
+}
+
+
+/* ==========================================================
+   BOTTOM NAVIGATION
+   Exactly the same visual system as index/support.
+   ========================================================== */
+
+.bottom-nav {
+  position: fixed;
+
+  left: 50%;
+  bottom: 0;
+
+  z-index: 20;
+
+  width: 100%;
+  max-width: 480px;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 4px;
+
+  padding:
+    8px
+    10px
+    calc(8px + env(safe-area-inset-bottom));
+
+  border-radius: 24px 24px 0 0;
+
+  background: var(--grad);
+
+  box-shadow:
+    0 -10px 30px rgba(76, 29, 149, .25);
+
+  transform: translateX(-50%);
+}
+
+
+.nav__item {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 3px;
+
+  padding: 8px 4px;
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  color: rgba(255, 255, 255, .78);
+
+  border-radius: 16px;
+
+  transition:
+    transform .15s ease,
+    background .25s ease,
+    color .25s ease,
+    box-shadow .25s ease;
+}
+
+
+.nav__item:active {
+  transform: scale(.94);
+}
+
+
+.nav__item.is-active {
+  font-weight: 600;
+
+  color: var(--violet-600);
+
+  background: #fff;
+
+  box-shadow:
+    0 6px 14px -6px rgba(0, 0, 0, .35);
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 350px) {
+
+  .history-content {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+
+  .transaction {
+    padding: 11px;
+  }
+
+
+  .transaction__icon {
+    width: 41px;
+    height: 41px;
+  }
+
+
+  .transaction__title {
+    font-size: 11.5px;
+  }
+
+
+  .transaction__amount {
+    font-size: 13px;
+  }
+
+
+  .nav__item {
+    font-size: 10px;
+  }
+}
+
+
+/* ==========================================================
+   REDUCED MOTION
+   ========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+
+    transition-duration: .01ms !important;
+  }
+
+}

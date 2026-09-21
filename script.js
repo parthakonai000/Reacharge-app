@@ -1,259 +1,205 @@
-(function () {
-  "use strict";
+(() => {
+  'use strict';
 
-  /* ---------------------------------------------------
-     Element references
-  --------------------------------------------------- */
-  const mobileInput     = document.getElementById("mobileNumber");
-  const inputShell      = document.getElementById("inputShell");
-  const fieldHint       = document.getElementById("fieldHint");
-  const detectedRow     = document.getElementById("detectedRow");
-  const detectedText    = document.getElementById("detectedText");
-  const contactsBtn     = document.getElementById("contactsBtn");
-  const operatorGrid    = document.getElementById("operatorGrid");
-  const operatorCards   = Array.from(document.querySelectorAll(".operator-card"));
-  const amountChips     = Array.from(document.querySelectorAll(".amount-chip"));
-  const amountInput     = document.getElementById("amountInput");
-  const ctaAmount       = document.getElementById("ctaAmount");
-  const rechargeBtn     = document.getElementById("rechargeBtn");
-  const toast           = document.getElementById("toast");
-  const toastText       = document.getElementById("toastText");
-  const bannerTrack     = document.getElementById("bannerTrack");
-  const bannerDotsWrap  = document.getElementById("bannerDots");
-  const balanceEyeBtn   = document.getElementById("balanceEyeBtn");
-  const balanceAmount   = document.getElementById("balanceAmount");
+  const $  = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
-  // Sidebar Elements
-  const menuBtn         = document.getElementById("menuBtn");
-  const sidebar         = document.getElementById("sidebar");
-  const sidebarBackdrop = document.getElementById("sidebarBackdrop");
-  const closeSidebarBtn = document.getElementById("closeSidebarBtn");
+  /* ---------- Toast ---------- */
+  const toastEl = $('#toast');
+  let toastTimer;
 
-  /* ---------------------------------------------------
-     State
-  --------------------------------------------------- */
-  let selectedOperator = null;
-  let selectedAmount = null;
-  let autoDetected = false;
+  function toast(message) {
+    toastEl.textContent = message;
+    toastEl.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('is-visible'), 2200);
+  }
 
-  /* ---------------------------------------------------
-     Demo prefix -> operator map (illustrative only)
-  --------------------------------------------------- */
-  const PREFIX_MAP = {
-    "6": "Jio",
-    "7": "Airtel",
-    "8": "Vi",
-    "9": "BSNL"
+  /* ---------- Image placeholders ----------
+     Until real images are added, a neutral placeholder is shown
+     instead of a broken image icon. Real logos replace it automatically
+     once src points to a file that exists. */
+  const FALLBACK_SRC = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">' +
+    '<rect width="96" height="96" rx="24" fill="#EFE9FF"/>' +
+    '<circle cx="36" cy="37" r="6" fill="#B79BFF"/>' +
+    '<path d="M24 68l17-19 12 13 8-9 11 15z" fill="#B79BFF"/></svg>'
+  );
+
+  function useFallback(img) {
+    if (img.dataset.fallback) return;
+    img.dataset.fallback = '1';
+    img.src = FALLBACK_SRC;
+  }
+
+  $$('img').forEach((img) => {
+    img.addEventListener('error', () => useFallback(img));
+    if (img.complete && img.naturalWidth === 0) useFallback(img);
+  });
+
+  /* ---------- Tap ripple ---------- */
+  document.addEventListener('pointerdown', (e) => {
+    const host = e.target.closest('[data-ripple]');
+    if (!host || host.disabled) return;
+
+    const rect = host.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 1.4;
+    const dot = document.createElement('span');
+
+    dot.className = 'ripple' + (host.dataset.ripple === 'dark' ? ' ripple--dark' : '');
+    dot.style.width = dot.style.height = size + 'px';
+    dot.style.left = e.clientX - rect.left - size / 2 + 'px';
+    dot.style.top = e.clientY - rect.top - size / 2 + 'px';
+
+    host.appendChild(dot);
+    setTimeout(() => dot.remove(), 650);
+  });
+
+  /* ---------- Placeholder actions ---------- */
+  const ACTION_MESSAGES = {
+    'add-money': 'Add Money will open here soon',
+    'support':   'Support will open here soon',
+    'offers':    'Offers will open here soon',
+    'profile':   'Profile will open here soon'
   };
 
-  /* =====================================================
-     Mobile number input
-  ===================================================== */
-  mobileInput.addEventListener("input", () => {
-    // keep digits only, cap at 10
-    const digitsOnly = mobileInput.value.replace(/\D/g, "").slice(0, 10);
-    mobileInput.value = digitsOnly;
-    updateHint(digitsOnly);
-    updateCta();
-    
-    if (digitsOnly.length >= 2 && !selectedOperator) {
-      tryAutoDetect(digitsOnly);
-    }
-    if (digitsOnly.length === 0) {
-      autoDetected = false;
-      detectedRow.hidden = true;
-      clearOperatorSelection();
-    }
+  $$('[data-action]').forEach((el) => {
+    el.addEventListener('click', () => toast(ACTION_MESSAGES[el.dataset.action] || 'Coming soon'));
   });
 
-  mobileInput.addEventListener("blur", () => {
-    const digits = mobileInput.value;
-    if (digits.length > 0 && digits.length < 10) {
-      inputShell.classList.add("shake");
-      setTimeout(() => inputShell.classList.remove("shake"), 400);
-    }
-  });
+  /* ---------- Bottom navigation: active tab ---------- */
+  const navItems = $$('.nav__item');
 
-  function updateHint(digits) {
-    fieldHint.classList.remove("is-valid", "is-error");
-    if (digits.length === 0) {
-      fieldHint.textContent = "We'll detect your operator and circle automatically";
-    } else if (digits.length < 10) {
-      fieldHint.textContent = `${10 - digits.length} digit${10 - digits.length === 1 ? "" : "s"} remaining`;
-    } else {
-      fieldHint.textContent = "Looks good";
-      fieldHint.classList.add("is-valid");
-    }
-  }
+  navItems.forEach((item) => {
+    item.addEventListener('click', (e) => {
+      // Links that still use href="#" only switch the active state.
+      // Once you set a real href (e.g. "history.html") the browser navigates.
+      if (item.getAttribute('href') === '#') e.preventDefault();
 
-  function tryAutoDetect(digits) {
-    const operator = PREFIX_MAP[digits[0]];
-    if (!operator) return;
-    autoDetected = true;
-    detectedText.textContent = `Detected: ${operator} West Bengal`;
-    detectedRow.hidden = false;
-    selectOperator(operator, { silent: true });
-  }
-
-  /* =====================================================
-     My Balance show / hide toggle
-  ===================================================== */
-  balanceEyeBtn.addEventListener("click", () => {
-    const nowHidden = balanceAmount.classList.toggle("is-hidden");
-    balanceEyeBtn.setAttribute("aria-label", nowHidden ? "Show balance" : "Hide balance");
-  });
-
-  /* =====================================================
-     Contacts button (placeholder action)
-  ===================================================== */
-  contactsBtn.addEventListener("click", () => {
-    contactsBtn.style.transform = "scale(0.85)";
-    setTimeout(() => (contactsBtn.style.transform = ""), 150);
-    showToast("Contact picker connects when this app is wrapped natively");
-  });
-
-  /* =====================================================
-     Operator selection grid
-  ===================================================== */
-  operatorCards.forEach((card) => {
-    card.addEventListener("click", () => {
-      const name = card.dataset.operator;
-      autoDetected = false;
-      detectedRow.hidden = true;
-      selectOperator(name);
-    });
-  });
-
-  function selectOperator(name, opts) {
-    selectedOperator = name;
-    operatorCards.forEach((card) => {
-      const isMatch = card.dataset.operator === name;
-      card.classList.toggle("is-selected", isMatch);
-    });
-    updateCta();
-    if (!opts || !opts.silent) {
-      pulse(operatorGrid);
-    }
-  }
-
-  function clearOperatorSelection() {
-    selectedOperator = null;
-    operatorCards.forEach((card) => card.classList.remove("is-selected"));
-    updateCta();
-  }
-
-  /* =====================================================
-     Amount chips + custom input
-  ===================================================== */
-  amountChips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const value = Number(chip.dataset.amount);
-      setAmount(value);
-      amountInput.value = "";
-    });
-  });
-
-  amountInput.addEventListener("input", () => {
-    const raw = amountInput.value.replace(/[^\d]/g, "");
-    amountInput.value = raw;
-    amountChips.forEach((chip) => chip.classList.remove("is-active"));
-    setAmount(raw ? Number(raw) : null);
-  });
-
-  function setAmount(value) {
-    selectedAmount = value;
-    amountChips.forEach((chip) => {
-      chip.classList.toggle("is-active", Number(chip.dataset.amount) === value);
-    });
-    ctaAmount.textContent = `₹ ${value ? value : 0}`;
-    updateCta();
-  }
-
-  /* =====================================================
-     CTA state + submission
-  ===================================================== */
-  function updateCta() {
-    const numberValid = mobileInput.value.length === 10;
-    const amountValid = Boolean(selectedAmount && selectedAmount > 0);
-    const ready = numberValid && amountValid;
-    rechargeBtn.disabled = !ready;
-  }
-
-  rechargeBtn.addEventListener("click", () => {
-    if (rechargeBtn.disabled || rechargeBtn.classList.contains("is-loading")) return;
-    rechargeBtn.classList.add("is-loading");
-    setTimeout(() => {
-      rechargeBtn.classList.remove("is-loading");
-      const operatorLabel = selectedOperator ? selectedOperator : "your operator";
-      showToast(`₹ ${selectedAmount} sent to ${operatorLabel} recharge`);
-    }, 1400);
-  });
-
-  /* =====================================================
-     Toast helper
-  ===================================================== */
-  let toastTimer = null;
-  function showToast(message) {
-    toastText.textContent = message;
-    toast.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
-  }
-
-  /* =====================================================
-     Small pulse feedback for grid changes
-  ===================================================== */
-  function pulse(el) {
-    el.style.transition = "transform 0.18s cubic-bezier(0.22,1,0.36,1)";
-    el.style.transform = "scale(0.99)";
-    requestAnimationFrame(() => {
-      el.style.transform = "scale(1)";
-    });
-  }
-
-  /* =====================================================
-     Banner carousel dots
-  ===================================================== */
-  function initBannerDots() {
-    const banners = Array.from(bannerTrack.children);
-    banners.forEach((_, i) => {
-      const dot = document.createElement("span");
-      if (i === 0) dot.classList.add("active");
-      bannerDotsWrap.appendChild(dot);
-    });
-    const dots = Array.from(bannerDotsWrap.children);
-    let ticking = false;
-    bannerTrack.addEventListener("scroll", () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const index = Math.round(bannerTrack.scrollLeft / bannerTrack.clientWidth);
-        dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
-        ticking = false;
+      navItems.forEach((other) => {
+        other.classList.remove('is-active');
+        other.removeAttribute('aria-current');
       });
+      item.classList.add('is-active');
+      item.setAttribute('aria-current', 'page');
     });
+  });
+
+  /* ---------- Hero banner dots ---------- */
+  const track  = $('#heroTrack');
+  const slides = $$('.slide', track);
+  const dots   = $$('.hero__dot');
+
+  function syncDots() {
+    const step = slides.length > 1 ? slides[1].offsetLeft - slides[0].offsetLeft : track.clientWidth;
+    const index = Math.round(track.scrollLeft / step);
+    dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
   }
 
-  /* =====================================================
-     Sidebar Toggle Logic
-  ===================================================== */
-  function openSidebar() {
-    sidebar.classList.add("is-open");
-    sidebarBackdrop.classList.add("is-visible");
-    document.body.style.overflow = "hidden"; // Prevent background scroll
+  track.addEventListener('scroll', () => requestAnimationFrame(syncDots), { passive: true });
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => track.scrollTo({ left: slides[i].offsetLeft, behavior: 'smooth' }));
+  });
+
+  /* ---------- Wallet balance visibility ---------- */
+  const balanceEl = $('#balanceValue');
+  const eyeBtn    = $('#toggleBalance');
+
+  eyeBtn.addEventListener('click', () => {
+    const hide = eyeBtn.getAttribute('aria-pressed') !== 'true';
+    eyeBtn.setAttribute('aria-pressed', String(hide));
+    eyeBtn.setAttribute('aria-label', hide ? 'Show balance' : 'Hide balance');
+    balanceEl.textContent = hide ? '₹ ••••••' : balanceEl.dataset.value;
+  });
+
+  /* ---------- Recharge: number + operator ---------- */
+  const field    = $('#numberField');
+  const input    = $('#mobileNumber');
+  const hint     = $('#numberHint');
+  const contBtn  = $('#continueBtn');
+  const contText = $('#continueLabel');
+  const ops      = $$('.op');
+
+  const VALID_NUMBER = /^[6-9]\d{9}$/;
+  let selectedOperator = null;
+
+  // Add the selection tick to every operator tile
+  ops.forEach((op) => {
+    op.insertAdjacentHTML(
+      'beforeend',
+      '<span class="op__tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>'
+    );
+  });
+
+  function setHint(text, state) {
+    hint.textContent = text;
+    hint.className = 'field__hint' + (state ? ' is-' + state : '');
   }
 
-  function closeSidebar() {
-    sidebar.classList.remove("is-open");
-    sidebarBackdrop.classList.remove("is-visible");
-    document.body.style.overflow = ""; // Restore scroll
+  function shake() {
+    field.classList.remove('is-error');
+    void field.offsetWidth; // restart the animation
+    field.classList.add('is-error');
   }
 
-  menuBtn.addEventListener("click", openSidebar);
-  closeSidebarBtn.addEventListener("click", closeSidebar);
-  sidebarBackdrop.addEventListener("click", closeSidebar);
+  function refresh({ blurred = false } = {}) {
+    const value = input.value;
+    const valid = VALID_NUMBER.test(value);
 
-  /* Initial state */
-  initBannerDots();
-  updateCta();
+    field.classList.toggle('is-filled', value.length > 0);
+    field.classList.toggle('is-valid', valid);
+    field.classList.remove('is-error');
+
+    if (valid) {
+      setHint('Number looks good', 'ok');
+    } else if (value.length === 10) {
+      setHint('Mobile numbers start with 6, 7, 8 or 9', 'error');
+      field.classList.add('is-error');
+    } else if (value.length > 0 && blurred) {
+      setHint('Enter all 10 digits', 'error');
+      shake();
+    } else if (value.length > 0) {
+      setHint(value.length + ' of 10 digits entered');
+    } else {
+      setHint('Enter a 10-digit mobile number');
+    }
+
+    if (!valid) contText.textContent = 'Enter mobile number';
+    else if (!selectedOperator) contText.textContent = 'Select a service provider';
+    else contText.textContent = 'Continue';
+
+    contBtn.disabled = !(valid && selectedOperator);
+  }
+
+  input.addEventListener('input', (e) => {
+    let digits = input.value.replace(/\D/g, '');
+
+    // Pasted numbers often include +91 or a leading 0
+    if (e.inputType === 'insertFromPaste' && digits.length > 10) {
+      digits = digits.replace(/^(91|0)/, '');
+    }
+
+    input.value = digits.slice(0, 10);
+    refresh();
+  });
+
+  input.addEventListener('blur', () => refresh({ blurred: true }));
+
+  ops.forEach((op) => {
+    op.addEventListener('click', () => {
+      const wasSelected = op.getAttribute('aria-pressed') === 'true';
+
+      ops.forEach((other) => other.setAttribute('aria-pressed', 'false'));
+      selectedOperator = wasSelected ? null : op.dataset.operator;
+      op.setAttribute('aria-pressed', String(!wasSelected));
+
+      refresh();
+    });
+  });
+
+  contBtn.addEventListener('click', () => {
+    toast('Plans for ' + selectedOperator + ' will open here soon');
+  });
+
+  refresh();
 })();

@@ -2,264 +2,215 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#6d31e0">
   <title>My Recharge App</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="app">
-    
-    <!-- Sidebar Backdrop -->
-    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
-    
-    <!-- Sidebar Menu -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar__header">
-        <div class="sidebar__profile">
-          <div class="sidebar__avatar">
-            <svg viewBox="0 0 24 24" fill="none" width="24" height="24">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="sidebar__user-info">
-            <h4>My Account</h4>
-            <p>+91 9876543210</p>
-          </div>
-        </div>
-        <button class="icon-btn ghost-icon-btn" id="closeSidebarBtn" aria-label="Close menu" type="button">
-          <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-      </div>
-      <nav class="sidebar__nav">
-        <a href="#" class="sidebar__link">
-          <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>My Account</span>
-        </a>
-        <a href="#" class="sidebar__link">
-          <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7m9-3l-3 3-3-3m3 3V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Balance</span>
-        </a>
-        <a href="#" class="sidebar__link">
-          <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>History</span>
-        </a>
-        <a href="#" class="sidebar__link">
-          <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 2v20m5-17H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Cashback</span>
-        </a>
-        <a href="#" class="sidebar__link">
-          <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.8 1 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Settings</span>
-        </a>
-      </nav>
-    </aside>
 
-    <!-- Header -->
+    <!-- 1. HEADER -->
     <header class="topbar">
-      <div class="topbar__brand">
-        <!-- Hamburger Menu Button -->
-        <button class="icon-btn ghost-icon-btn" id="menuBtn" aria-label="Menu" type="button" style="margin-right: 8px;">
-          <svg viewBox="0 0 24 24" fill="none" width="22" height="22">
-            <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-        <span class="logo-slot">
-          <img src="logo.jpg" alt="" class="logo-slot__img">
-        </span>
-        <span class="topbar__title">PK Recharge </span>
+      <div class="topbar__row">
+        <div class="brand">
+          <!-- Logo placeholder. Recommended size: 80x80 px, transparent PNG or SVG -->
+          <img class="brand__logo" src="logo.jpg" alt="My Recharge App logo" width="40" height="40">
+          <span class="brand__name">My Recharge App</span>
+        </div>
+        <div class="topbar__actions">
+          <button class="icon-btn" type="button" data-action="offers" data-ripple aria-label="Offers and promotions">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.3"/><circle cx="17" cy="17" r="2.3"/></svg>
+          </button>
+          <button class="icon-btn" type="button" data-action="profile" data-ripple aria-label="Profile">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </button>
+        </div>
       </div>
-      <button class="icon-btn" aria-label="Notifications">
-        <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
-          <path d="M12 3.5c-3.2 0-5.6 2.5-5.6 5.7v2.7c0 .7-.3 1.7-.8 2.4l-.9 1.3c-.6.9 0 2.2 1.1 2.2h12.4c1.1 0 1.7-1.3 1.1-2.2l-.9-1.3c-.5-.7-.8-1.7-.8-2.4V9.2c0-3.2-2.4-5.7-5.6-5.7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-          <path d="M9.8 19.2a2.2 2.2 0 0 0 4.4 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-        </svg>
-        <span class="icon-btn__dot"></span>
-      </button>
+
+      <div class="greeting">
+        <p class="greeting__hello">Welcome Back!</p>
+        <p class="greeting__name">[Customer Name]</p>
+      </div>
     </header>
-    
-    <main class="scroll-area">
-      <!-- Wallet Balance -->
-      <section class="balance-card" aria-label="Wallet balance">
-        <div class="balance-card__glow"></div>
-        <div class="balance-card__top">
-          <span class="balance-card__label">My Balance</span>
-          <button class="balance-card__eye" id="balanceEyeBtn" aria-label="Hide balance" type="button">
-            <svg viewBox="0 0 24 24" fill="none" width="17" height="17" id="eyeIcon">
-              <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-              <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/>
-            </svg>
-          </button>
+
+    <main class="content">
+
+      <!-- 2. HERO BANNER -->
+      <section class="hero" aria-label="Announcements and offers">
+        <div class="hero__track" id="heroTrack">
+
+          <article class="slide slide--primary">
+            <div class="slide__copy">
+              <span class="status-pill"><span class="status-pill__dot"></span>All Services Fully Operational</span>
+              <h2 class="slide__title">Instant Digital Recharges Made Simple</h2>
+              <p class="slide__text">Recharge any operator in seconds, at any time of day.</p>
+            </div>
+
+            <div class="phone-wrap">
+              <div class="phone" aria-hidden="true">
+                <div class="phone__screen">
+                  <div class="phone__check">
+                    <svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+                  </div>
+                  <p class="phone__status">Recharge Successful</p>
+                  <p class="phone__amount">₹239</p>
+                  <p class="phone__meta">Prepaid Plan</p>
+                  <span class="phone__done">Done</span>
+                </div>
+              </div>
+              <div class="seal">
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8.2-7.5 9.5-4.3-1.3-7.5-5-7.5-9.5V6L12 3z"/><path d="M8.8 12l2.4 2.4 4-4.4"/></svg>
+                <span>100% Safe<br>&amp; Secure</span>
+              </div>
+            </div>
+
+            <ul class="slide__features">
+              <li>
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg>
+                Instant Recharge
+              </li>
+              <li>
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+                Secure Payments
+              </li>
+              <li>
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                24/7 Service
+              </li>
+              <li>
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15a8 8 0 1116 0"/><path d="M12 15l4-4"/></svg>
+                Fast &amp; Reliable
+              </li>
+            </ul>
+          </article>
+
+          <article class="slide slide--offer">
+            <div class="slide__copy">
+              <h2 class="slide__title">Top up once, recharge in a tap</h2>
+              <p class="slide__text">Keep your wallet funded for faster checkout on every recharge.</p>
+              <button class="btn btn--primary btn--sm" type="button" data-action="add-money" data-ripple>Add Money</button>
+            </div>
+            <!-- Offer artwork placeholder. Recommended size: 240x240 px -->
+            <img class="slide__art" src="
+           jio.jpg" alt="Wallet offer illustration" width="110" height="110">
+          </article>
+
         </div>
-        <div class="balance-card__amount" id="balanceAmount">₹ 2,450.75</div>
-        <div class="balance-card__footer">
-          <span class="commission-badge">
-            <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
-              <path d="M12 3l1.9 4.1 4.4.5-3.3 3 .9 4.4L12 12.9 8.1 15l.9-4.4-3.3-3 4.4-.5L12 3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-            </svg>
-            commission upto 3% guaranteed
+        <div class="hero__dots" id="heroDots">
+          <button class="hero__dot is-active" type="button" aria-label="Show announcement 1"></button>
+          <button class="hero__dot" type="button" aria-label="Show announcement 2"></button>
+        </div>
+      </section>
+
+      <!-- 3. WALLET -->
+      <section class="wallet card" aria-label="Wallet">
+        <div class="wallet__icon">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M3 12l9 4.5 9-4.5"/><path d="M3 16.5L12 21l9-4.5"/></svg>
+        </div>
+        <div class="wallet__info">
+          <p class="wallet__label">Wallet Balance</p>
+          <p class="wallet__amount">
+            <span id="balanceValue" data-value="₹2000.00">₹2000.00</span>
+            <button class="eye-btn" id="toggleBalance" type="button" aria-pressed="false" aria-label="Hide balance">
+              <svg class="ico eye-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="ico eye-closed" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 5.1A9.8 9.8 0 0112 5c6.4 0 10 7 10 7a17 17 0 01-3.2 4.2M6.6 6.6C3.7 8.4 2 12 2 12s3.6 7 10 7c1.7 0 3.2-.4 4.5-1"/><path d="M9.9 9.9a3 3 0 004.2 4.2"/></svg>
+            </button>
+          </p>
+        </div>
+        <button class="btn btn--primary" type="button" data-action="add-money" data-ripple>
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+          Add Money
+        </button>
+      </section>
+
+      <!-- 4. SUPPORT BANNER -->
+      <button class="support" type="button" data-action="support" data-ripple="dark">
+        <span class="support__icon">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1.2-4.4A8 8 0 1121 12z"/><path d="M8.5 11h7M8.5 14h4"/></svg>
+        </span>
+        <span class="support__text">Need help? Let's connect with our dedicated support team.</span>
+        <svg class="ico support__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+
+      <!-- 5. QUICK PAY SERVICES -->
+      <section class="quickpay" aria-labelledby="quickpayTitle">
+        <h2 class="section-title" id="quickpayTitle">Quick Pay Services</h2>
+
+        <div class="field" id="numberField">
+          <span class="field__prefix">+91</span>
+          <input class="field__input" id="mobileNumber" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="Enter 10 digits" aria-describedby="numberHint">
+          <label class="field__label" for="mobileNumber">Mobile number</label>
+          <span class="field__status" aria-hidden="true">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
           </span>
         </div>
-      </section>
+        <p class="field__hint" id="numberHint" role="status">Enter a 10-digit mobile number</p>
 
-      <!-- Promotional Banner -->
-      <section class="banner-strip" aria-label="Offers and announcements">
-        <div class="banner-track" id="bannerTrack">
-          <article class="banner banner--flash">
-            <div class="banner__copy">
-              <p class="banner__tag">Limited time</p>
-              <h2 class="banner__title">10% cashback<br>on your first recharge</h2>
-              <p class="banner__sub">Use code CHARGE10 at checkout</p>
-            </div>
-            <div class="banner__glow"></div>
-          </article>
-          <article class="banner banner--plan">
-            <div class="banner__copy">
-              <p class="banner__tag">New</p>
-              <h2 class="banner__title">₹ 499 plan now<br>with 2GB data</h2>
-              <p class="banner__sub">Valid for all prepaid operators</p>
-            </div>
-            <div class="banner__glow"></div>
-          </article>
-          <article class="banner banner--refer">
-            <div class="banner__copy">
-              <p class="banner__tag">Refer & earn</p>
-              <h2 class="banner__title">Give ₹ 50,<br>get ₹ 50</h2>
-              <p class="banner__sub">Invite friends to the app</p>
-            </div>
-            <div class="banner__glow"></div>
-          </article>
+        <h3 class="subtitle">Choose a service provider</h3>
+        <!--
+          Logo placeholders. Recommended size: 96x96 px, transparent PNG or SVG.
+          Replace each src="placeholder.png" with the real logo path.
+        -->
+        <div class="operators" role="group" aria-label="Service providers">
+          <button class="op" type="button" data-operator="Prepaid" data-ripple="dark" aria-pressed="false">
+            <span class="op__logo"><img src="prepaid.jpg" alt="Prepaid recharge logo" width="52" height="52"></span>
+            <span class="op__name">Prepaid</span>
+          </button>
+          <button class="op" type="button" data-operator="Airtel" data-ripple="dark" aria-pressed="false">
+            <span class="op__logo"><img src="airtel.jpg" alt="Airtel logo" width="52" height="52"></span>
+            <span class="op__name">Airtel</span>
+          </button>
+          <button class="op" type="button" data-operator="BSNL" data-ripple="dark" aria-pressed="false">
+            <span class="op__logo"><img src="bsnl.jpg" alt="BSNL logo" width="52" height="52"></span>
+            <span class="op__name">BSNL</span>
+          </button>
+          <button class="op" type="button" data-operator="Jio" data-ripple="dark" aria-pressed="false">
+            <span class="op__logo"><img src="jio.jpg" alt="Jio logo" width="52" height="52"></span>
+            <span class="op__name">Jio</span>
+          </button>
+          <button class="op" type="button" data-operator="MTNL" data-ripple="dark" aria-pressed="false">
+            <span class="op__logo"><img src="mtnl.jpg" alt="MTNL logo" width="52" height="52"></span>
+            <span class="op__name">MTNL</span>
+          </button>
+          <button class="op" type="button" data-operator="Vi" data-ripple="dark" aria-pressed="false">
+            <span class="op__logo"><img src="vi.jpg" alt="Vi logo" width="52" height="52"></span>
+            <span class="op__name">Vi</span>
+          </button>
         </div>
-        <div class="banner-dots" id="bannerDots"></div>
-      </section>
 
-      <!-- Recharge Input Section -->
-      <section class="recharge-card" aria-label="Enter mobile number">
-        <label class="field-label" for="mobileNumber">Mobile number</label>
-        <div class="input-shell" id="inputShell">
-          <span class="country-chip">
-            <span class="country-chip__flag">🇮🇳</span>
-            <span>+91</span>
-          </span>
-          <span class="input-divider"></span>
-          <input
-            type="tel"
-            id="mobileNumber"
-            class="mobile-input"
-            placeholder="Enter 10-digit number"
-            inputmode="numeric"
-            maxlength="10"
-            autocomplete="tel-national"
-          >
-          <button class="ghost-icon-btn" id="contactsBtn" aria-label="Choose from contacts" type="button">
-            <svg viewBox="0 0 24 24" fill="none" width="19" height="19">
-              <circle cx="12" cy="8.2" r="3.2" stroke="currentColor" stroke-width="1.6"/>
-              <path d="M5.5 19c.7-3 3-4.6 6.5-4.6s5.8 1.6 6.5 4.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            </svg>
-          </button>
-        </div>
-        <p class="field-hint" id="fieldHint">We'll detect your operator and circle automatically</p>
-        <div class="detected-row" id="detectedRow" hidden>
-          <span class="detected-pill">
-            <span class="detected-dot"></span>
-            <span id="detectedText">Operator detected</span>
-          </span>
-        </div>
+        <button class="btn btn--primary btn--block" id="continueBtn" type="button" data-ripple disabled>
+          <span id="continueLabel">Enter mobile number</span>
+        </button>
       </section>
-
-      <!-- Operator Selection Grid -->
-      <section class="operator-section" aria-label="Choose operator">
-        <div class="section-heading">
-          <h3>Choose your operator</h3>
-          <span class="section-heading__hint">or let us auto-detect</span>
-        </div>
-        <div class="operator-grid" id="operatorGrid">
-          <button class="operator-card" data-operator="Jio" type="button">
-            <span class="operator-card__logo">
-              <img src="jio.jpg" alt="Jio logo">
-            </span>
-            <span class="operator-card__name">Jio</span>
-            <span class="operator-card__ring"></span>
-          </button>
-          <button class="operator-card" data-operator="Airtel" type="button">
-            <span class="operator-card__logo">
-              <img src="airtel.jpg" alt="Airtel logo">
-            </span>
-            <span class="operator-card__name">Airtel</span>
-            <span class="operator-card__ring"></span>
-          </button>
-          <button class="operator-card" data-operator="Vi" type="button">
-            <span class="operator-card__logo">
-              <img src="vi.jpg" alt="Vi logo">
-            </span>
-            <span class="operator-card__name">Vi</span>
-            <span class="operator-card__ring"></span>
-          </button>
-          <button class="operator-card" data-operator="BSNL" type="button">
-            <span class="operator-card__logo">
-              <img src="bsnl.jpg" alt="BSNL logo">
-            </span>
-            <span class="operator-card__name">BSNL</span>
-            <span class="operator-card__ring"></span>
-          </button>
-        </div>
-      </section>
-
-      <!-- Amount Section -->
-      <section class="amount-section" aria-label="Recharge amount">
-        <div class="section-heading">
-          <h3>Recharge amount</h3>
-          <span class="section-heading__hint">tap a plan or enter your own</span>
-        </div>
-        <div class="amount-chips" id="amountChips">
-          <button class="amount-chip" data-amount="199" type="button">₹ 199</button>
-          <button class="amount-chip" data-amount="299" type="button">₹ 299</button>
-          <button class="amount-chip" data-amount="499" type="button">₹ 499</button>
-          <button class="amount-chip" data-amount="799" type="button">₹ 799</button>
-        </div>
-        <div class="input-shell input-shell--amount" id="amountShell">
-          <span class="amount-prefix">₹</span>
-          <span class="input-divider"></span>
-          <input
-            type="number"
-            id="amountInput"
-            class="mobile-input"
-            placeholder="Enter amount"
-            inputmode="numeric"
-          >
-        </div>
-      </section>
-      
-      <div class="bottom-spacer"></div>
     </main>
 
-    <!-- Sticky CTA -->
-    <footer class="cta-bar">
-      <div class="cta-bar__info">
-        <span class="cta-bar__label">Total</span>
-        <span class="cta-bar__amount" id="ctaAmount">₹ 0</span>
-      </div>
-      <button class="cta-btn" id="rechargeBtn" type="button" disabled>
-        <span class="cta-btn__label">Recharge now</span>
-        <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
-          <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-    </footer>
+    <!-- 6. BOTTOM NAVIGATION -->
+    <nav class="bottom-nav" aria-label="Primary">
+      <!-- Set a real href (for example href="history.html") later and the link will navigate normally. -->
+      <a class="nav__item is-active" href="#" aria-current="page" data-ripple>
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11L12 4l8.5 7"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg>
+        <span>Home</span>
+      </a>
+      <a class="nav__item" href="history/history.html" data-ripple>
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 102.6-6.1L3.5 8.5"/><path d="M3.5 4v4.5H8"/><path d="M12 8v4.5l3 1.8"/></svg>
+        <span>History</span>
+      </a>
+      <a class="nav__item" href="support/support.html" data-ripple>
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0116 0v2"/><rect x="3" y="14" width="4.5" height="6" rx="2"/><rect x="16.5" y="14" width="4.5" height="6" rx="2"/><path d="M19 20c0 1.2-1.5 2-4 2h-2"/></svg>
+        <span>Support</span>
+      </a>
+      <a class="nav__item" href="#" data-ripple>
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2.2"/><circle cx="8" cy="17" r="2.2"/></svg>
+        <span>Settings</span>
+      </a>
+    </nav>
 
-    <!-- Success Toast -->
-    <div class="toast" id="toast">
-      <span class="toast__check">
-        <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
-          <path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </span>
-      <span id="toastText">Recharge successful</span>
-    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </div>
 
   <script src="script.js"></script>

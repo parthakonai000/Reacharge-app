@@ -1,0 +1,671 @@
+/* ==========================================================
+   MY RECHARGE APP — SUPPORT PAGE
+   Uses the same visual system as the main index page.
+   Palette: Violet + White
+   Font: Poppins
+   ========================================================== */
+
+:root {
+  --violet-800: #3a1590;
+  --violet-700: #5a24c9;
+  --violet-600: #6d31e0;
+  --violet-500: #8352f0;
+  --violet-200: #d9ccfa;
+  --violet-100: #efe9ff;
+  --violet-50: #f7f4ff;
+
+  --ink: #1d1538;
+  --muted: #6a6383;
+  --line: #e6e0f5;
+
+  --ok: #16a34a;
+
+  --grad:
+    linear-gradient(
+      135deg,
+      #5a20d0 0%,
+      #7c3aed 55%,
+      #9b6bff 100%
+    );
+
+  --shadow-sm:
+    0 2px 8px rgba(76, 29, 149, .08);
+
+  --shadow-md:
+    0 8px 22px -6px rgba(76, 29, 149, .22);
+
+  --shadow-lg:
+    0 16px 28px -14px rgba(58, 21, 144, .65);
+
+  --nav-h: 72px;
+
+  --font:
+    'Poppins',
+    'Open Sans',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+
+/* ==========================================================
+   BASE
+   ========================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+
+body {
+  margin: 0;
+
+  font-family: var(--font);
+
+  color: var(--ink);
+
+  background: #ece7fb;
+
+  line-height: 1.4;
+
+  -webkit-font-smoothing: antialiased;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+
+.ico {
+  width: 22px;
+  height: 22px;
+
+  flex: none;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 1.8;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+}
+
+
+/* ==========================================================
+   RIPPLE
+   ========================================================== */
+
+[data-ripple] {
+  position: relative;
+  overflow: hidden;
+}
+
+
+.ripple {
+  position: absolute;
+
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, .45);
+
+  transform: translate(-50%, -50%) scale(0);
+
+  animation: ripple .55s ease-out forwards;
+
+  pointer-events: none;
+}
+
+
+.ripple--dark {
+  background: rgba(109, 49, 224, .16);
+}
+
+
+@keyframes ripple {
+  to {
+    transform: translate(-50%, -50%) scale(15);
+    opacity: 0;
+  }
+}
+
+
+/* ==========================================================
+   APP SHELL
+   ========================================================== */
+
+.app {
+  position: relative;
+
+  max-width: 480px;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  margin: 0 auto;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 60px rgba(76, 29, 149, .15);
+
+  padding-bottom:
+    calc(var(--nav-h) + 20px + env(safe-area-inset-bottom));
+}
+
+
+/* ==========================================================
+   SUPPORT HEADER
+   ========================================================== */
+
+.support-topbar {
+  position: relative;
+
+  overflow: hidden;
+
+  padding:
+    calc(env(safe-area-inset-top) + 14px)
+    18px
+    48px;
+
+  color: #fff;
+
+  background: var(--grad);
+
+  border-radius: 0 0 30px 30px;
+
+  box-shadow: var(--shadow-lg);
+}
+
+
+.support-topbar::before {
+  content: "";
+
+  position: absolute;
+
+  top: -80px;
+  right: -60px;
+
+  width: 200px;
+  height: 200px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, .08);
+}
+
+
+.support-topbar__row {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+
+.support-topbar h1 {
+  position: absolute;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  letter-spacing: -.01em;
+}
+
+
+.support-topbar__space {
+  width: 40px;
+  height: 40px;
+}
+
+
+/* Back button uses the same icon-button style
+   as your main index page. */
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 14px;
+
+  color: #fff;
+
+  background: rgba(255, 255, 255, .16);
+
+  transition:
+    transform .15s ease,
+    background .2s ease;
+}
+
+
+.icon-btn:active {
+  transform: scale(.92);
+
+  background: rgba(255, 255, 255, .28);
+}
+
+
+.icon-btn .ico {
+  width: 22px;
+  height: 22px;
+}
+
+
+/* ==========================================================
+   CONTENT
+   ========================================================== */
+
+.support-content {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+
+  margin-top: -28px;
+
+  padding:
+    0
+    16px
+    20px;
+}
+
+
+/* ==========================================================
+   HERO
+   ========================================================== */
+
+.support-hero {
+  padding: 12px 10px 8px;
+
+  text-align: center;
+}
+
+
+.support-hero__image {
+  width: 150px;
+  height: 150px;
+
+  display: grid;
+
+  place-items: center;
+
+  margin: 0 auto 14px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  box-shadow: var(--shadow-md);
+}
+
+
+.support-hero__svg {
+  width: 132px;
+  height: 132px;
+}
+
+
+.support-hero h2 {
+  margin-bottom: 7px;
+
+  font-size: 21px;
+
+  font-weight: 600;
+
+  line-height: 1.3;
+
+  letter-spacing: -.01em;
+}
+
+
+.support-hero p {
+  max-width: 340px;
+
+  margin: 0 auto;
+
+  font-size: 12.5px;
+
+  line-height: 1.6;
+
+  color: var(--muted);
+}
+
+
+/* ==========================================================
+   SUPPORT CARDS
+   ========================================================== */
+
+.support-card {
+  padding: 16px;
+
+  border: 1px solid var(--line);
+
+  border-radius: 24px;
+
+  background: #fff;
+
+  box-shadow: var(--shadow-md);
+}
+
+
+.support-card__heading {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 15px;
+}
+
+
+.support-card__icon {
+  width: 48px;
+  height: 48px;
+
+  display: grid;
+
+  place-items: center;
+
+  flex: none;
+
+  border-radius: 15px;
+}
+
+
+.support-card__icon .ico {
+  width: 25px;
+  height: 25px;
+}
+
+
+.support-card__icon--whatsapp {
+  color: var(--ok);
+
+  background: #dcfce7;
+}
+
+
+.support-card__icon--phone {
+  color: var(--violet-600);
+
+  background: var(--violet-100);
+}
+
+
+.support-card__info {
+  min-width: 0;
+}
+
+
+.support-card__info h3 {
+  margin-bottom: 3px;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  line-height: 1.3;
+}
+
+
+.support-card__info p {
+  font-size: 13px;
+
+  color: var(--muted);
+
+  font-weight: 500;
+
+  letter-spacing: .02em;
+}
+
+
+/* ==========================================================
+   ACTION BUTTONS
+   ========================================================== */
+
+.support-action {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 49px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  overflow: hidden;
+
+  border-radius: 16px;
+
+  color: #fff;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  transition:
+    transform .15s ease,
+    box-shadow .2s ease;
+}
+
+
+.support-action:active {
+  transform: scale(.97);
+}
+
+
+.support-action .ico {
+  width: 18px;
+  height: 18px;
+}
+
+
+.support-action--whatsapp {
+  background: #16a34a;
+
+  box-shadow:
+    0 8px 16px -7px rgba(22, 163, 74, .7);
+}
+
+
+.support-action--call {
+  background: var(--grad);
+
+  box-shadow:
+    0 8px 16px -6px rgba(109, 49, 224, .65);
+}
+
+
+/* ==========================================================
+   BOTTOM NAVIGATION
+   Same structure/colors as your index CSS.
+   ========================================================== */
+
+.bottom-nav {
+  position: fixed;
+
+  left: 50%;
+  bottom: 0;
+
+  z-index: 20;
+
+  width: 100%;
+  max-width: 480px;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 4px;
+
+  padding:
+    8px
+    10px
+    calc(8px + env(safe-area-inset-bottom));
+
+  border-radius: 24px 24px 0 0;
+
+  background: var(--grad);
+
+  box-shadow:
+    0 -10px 30px rgba(76, 29, 149, .25);
+
+  transform: translateX(-50%);
+}
+
+
+.nav__item {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 3px;
+
+  padding: 8px 4px;
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  color: rgba(255, 255, 255, .78);
+
+  text-decoration: none;
+
+  border-radius: 16px;
+
+  transition:
+    transform .15s ease,
+    background .25s ease,
+    color .25s ease,
+    box-shadow .25s ease;
+}
+
+
+.nav__item:active {
+  transform: scale(.94);
+}
+
+
+.nav__item .ico {
+  width: 22px;
+  height: 22px;
+}
+
+
+.nav__item.is-active {
+  font-weight: 600;
+
+  color: var(--violet-600);
+
+  background: #fff;
+
+  box-shadow:
+    0 6px 14px -6px rgba(0, 0, 0, .35);
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 350px) {
+
+  .support-content {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+
+  .support-hero h2 {
+    font-size: 19px;
+  }
+
+
+  .support-card {
+    padding: 14px;
+  }
+
+
+  .support-card__icon {
+    width: 45px;
+    height: 45px;
+  }
+
+
+  .nav__item {
+    font-size: 10px;
+  }
+}
+
+
+/* ==========================================================
+   REDUCED MOTION
+   ========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+
+    transition-duration: .01ms !important;
+  }
+
+  .ripple {
+    display: none;
+  }
+}
