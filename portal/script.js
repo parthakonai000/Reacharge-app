@@ -202,4 +202,55 @@
   });
 
   refresh();
+  
+    /* ---------- Fetch Dashboard Data (Name & Balance) ---------- */
+  async function fetchDashboardData() {
+    // HTML এর এলিমেন্টগুলো সিলেক্ট করা
+    const userNameEl = $('#userName') || document.querySelector('.greeting__name');
+    const balanceEl = $('#balanceValue');
+    
+    const token = localStorage.getItem('authToken');
+
+    if (!token) {
+      // টোকেন না থাকলে লগইন পেজে পাঠিয়ে দিতে পারেন
+      window.location.href = '../index.html'; 
+      return;
+    }
+
+    try {
+      const response = await fetch('https://reacharge-app-backend.onrender.com/api/dashboard/user-info', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) throw new Error('Failed to fetch data');
+
+      const data = await response.json();
+      
+      // নাম এবং ব্যালেন্স আপডেট করা
+      if (userNameEl) userNameEl.textContent = data.name;
+      if (balanceEl) {
+        // ব্যালেন্স ২ ডেসিমেল পয়েন্টে দেখানো (যেমন: 200.00)
+        balanceEl.dataset.value = `₹ ${parseFloat(data.balance).toFixed(2)}`;
+        
+        // ব্যালেন্স হাইড করা না থাকলে সাথে সাথে আপডেট দেখানো
+        const eyeBtn = $('#toggleBalance');
+        const isHidden = eyeBtn && eyeBtn.getAttribute('aria-pressed') === 'true';
+        if (!isHidden) {
+          balanceEl.textContent = balanceEl.dataset.value;
+        }
+      }
+
+    } catch (error) {
+      console.error('Error:', error);
+      if (userNameEl) userNameEl.textContent = 'Valued Customer';
+    }
+  }
+
+  // পেজ লোড হওয়ার সাথে সাথে ডেটা ফেচ করা হবে
+  document.addEventListener('DOMContentLoaded', fetchDashboardData);
+
 })();

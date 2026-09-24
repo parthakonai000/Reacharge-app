@@ -33,9 +33,10 @@
       </div>
 
       <div class="greeting">
-        <p class="greeting__hello">Welcome Back!</p>
-        <p class="greeting__name">[Customer Name]</p>
-      </div>
+  <p class="greeting__hello">Welcome Back!</p>
+  <!-- [Customer Name] এর জায়গায় id="userName" যোগ করুন -->
+  <p class="greeting__name" id="userName">Loading...</p> 
+</div>
     </header>
 
     <main class="content">
@@ -115,7 +116,8 @@
         <div class="wallet__info">
           <p class="wallet__label">Wallet Balance</p>
           <p class="wallet__amount">
-            <span id="balanceValue" data-value="₹2000.00">₹2000.00</span>
+            <span id="balanceValue" data-value="0.00">Loading...</span>
+
             <button class="eye-btn" id="toggleBalance" type="button" aria-pressed="false" aria-label="Hide balance">
               <svg class="ico eye-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
               <svg class="ico eye-closed" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 5.1A9.8 9.8 0 0112 5c6.4 0 10 7 10 7a17 17 0 01-3.2 4.2M6.6 6.6C3.7 8.4 2 12 2 12s3.6 7 10 7c1.7 0 3.2-.4 4.5-1"/><path d="M9.9 9.9a3 3 0 004.2 4.2"/></svg>
