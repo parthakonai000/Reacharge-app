@@ -2,6 +2,38 @@
 const API_BASE = "https://reacharge-app-backend.onrender.com"; // এখানে আপনার Render-এর লিংক বসাবেন
 const RESEND_SECONDS = 24;
 
+
+// ==========================================================================
+// Auto-Login Check on Page Load
+// ==========================================================================
+document.addEventListener("DOMContentLoaded", async () => {
+  const token = localStorage.getItem("authToken");
+
+  if (token) {
+    // চেকিং চলাকালীন লগইন পেজটিকে একটু ঝাপসা (loading effect) করে রাখা হচ্ছে
+    document.body.style.opacity = "0.5";
+    document.body.style.pointerEvents = "none";
+
+    try {
+      const data = await apiRequest("/api/login/verify-token", { token });
+      
+      if (data.valid) {
+        // টোকেন ভ্যালিড হলে সরাসরি পোর্টালে নিয়ে যাবে
+        window.location.href = "/portal/index.html";
+      } else {
+        // টোকেন ইনভ্যালিড/এক্সপায়ার হলে টোকেন মুছে ফেলবে এবং লগইন পেজ পরিষ্কার করবে
+        localStorage.removeItem("authToken");
+        document.body.style.opacity = "1";
+        document.body.style.pointerEvents = "auto";
+      }
+    } catch (err) {
+      localStorage.removeItem("authToken");
+      document.body.style.opacity = "1";
+      document.body.style.pointerEvents = "auto";
+    }
+  }
+});
+
 // ==========================================================================
 // Elements
 // ==========================================================================
