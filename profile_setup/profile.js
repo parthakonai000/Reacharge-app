@@ -9,33 +9,34 @@ const lastNameError = document.getElementById("lastNameError");
 const emailError = document.getElementById("emailError");
 
 const successBox = document.getElementById("successBox");
+const submitBtn = form.querySelector('button[type="submit"]');
 
-// আপনার Render-এর ব্যাকএন্ড লিংক বসান
-const API_BASE = "https://reacharge-app-backend.onrender.com"; 
+// আপনার Render-এর ব্যাকএন্ড লিংক এখানে বসান
+const API_BASE = "https://your-render-app-name.onrender.com"; 
 
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
-  // Clear previous errors
+  // আগের এরর মেসেজগুলো ক্লিয়ার করা হচ্ছে
   firstNameError.textContent = "";
   lastNameError.textContent = "";
   emailError.textContent = "";
 
   let valid = true;
 
-  // First Name
+  // First Name ভ্যালিডেশন
   if (firstName.value.trim() === "") {
     firstNameError.textContent = "Please enter your first name.";
     valid = false;
   }
 
-  // Last Name
+  // Last Name ভ্যালিডেশন
   if (lastName.value.trim() === "") {
     lastNameError.textContent = "Please enter your last name.";
     valid = false;
   }
 
-  // Email
+  // Email ভ্যালিডেশন
   const emailValue = email.value.trim();
   if (emailValue === "") {
     emailError.textContent = "Please enter your email address.";
@@ -45,7 +46,7 @@ form.addEventListener("submit", async function (e) {
     valid = false;
   }
 
-  // If everything is valid
+  // যদি সবকিছু ঠিক থাকে
   if (valid) {
     // ফার্স্ট নেম এবং লাস্ট নেম এর মাঝে স্পেস দিয়ে যুক্ত করা হলো
     const fullName = `${firstName.value.trim()} ${lastName.value.trim()}`;
@@ -60,9 +61,14 @@ form.addEventListener("submit", async function (e) {
     
     if (!token) {
       alert("Authentication error. Please login again.");
-      window.location.href = "/index.html"; // টোকেন না থাকলে লগইনে পাঠাবে
+      window.location.href = "/index.html"; 
       return;
     }
+
+    // ১. লোডিং স্টেট চালু করা
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.classList.add("btn-loading");
+    submitBtn.disabled = true;
 
     try {
       // ব্যাকএন্ডে ডেটা পাঠানো
@@ -70,7 +76,7 @@ form.addEventListener("submit", async function (e) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}` // হেডারে টোকেন পাঠানো হলো
+          "Authorization": `Bearer ${token}` 
         },
         body: JSON.stringify(profileData)
       });
@@ -81,7 +87,10 @@ form.addEventListener("submit", async function (e) {
         throw new Error(data.error || "Something went wrong.");
       }
 
-      console.log("Profile Data Saved:", data);
+      // ২. সাকসেস স্টেট দেখানো
+      submitBtn.classList.remove("btn-loading");
+      submitBtn.classList.add("btn-success");
+      submitBtn.innerHTML = "Success!"; 
       successBox.classList.add("show");
 
       // সাকসেস হওয়ার ১.৫ সেকেন্ড পর পোর্টালে রিডাইরেক্ট করবে
@@ -91,7 +100,18 @@ form.addEventListener("submit", async function (e) {
 
     } catch (error) {
       console.error("Error updating profile:", error);
-      alert(error.message);
+      
+      // ৩. ফেইলড স্টেট দেখানো
+      submitBtn.classList.remove("btn-loading");
+      submitBtn.classList.add("btn-error");
+      submitBtn.innerHTML = "Failed!"; 
+      
+      // ৩ সেকেন্ড পর বাটনটি আগের অবস্থায় ফিরিয়ে আনা
+      setTimeout(() => {
+        submitBtn.classList.remove("btn-error");
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+      }, 3000);
     }
   }
 });

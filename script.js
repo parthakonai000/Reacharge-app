@@ -378,7 +378,7 @@ async function verifyOtp() {
       // ইউজার স্ট্যাটাস অনুযায়ী পেজ রিডাইরেক্ট
       setTimeout(() => {
         if (data.isNewUser) {
-          window.location.href = "/my-account.html"; // নতুন ইউজারের জন্য
+          window.location.href = "profile_setup/profile.html"; // নতুন ইউজারের জন্য
         } else {
           window.location.href = "portal/index.html"; // আগে থেকে রেজিস্টার্ড ইউজারের জন্য
         }
