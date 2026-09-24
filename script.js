@@ -8,31 +8,31 @@ const RESEND_SECONDS = 24;
 // ==========================================================================
 document.addEventListener("DOMContentLoaded", async () => {
   const token = localStorage.getItem("authToken");
+  const pageLoader = document.getElementById("page-loader");
 
   if (token) {
-    // চেকিং চলাকালীন লগইন পেজটিকে একটু ঝাপসা (loading effect) করে রাখা হচ্ছে
-    document.body.style.opacity = "0.5";
-    document.body.style.pointerEvents = "none";
+    // লোডার চালু করা হচ্ছে
+    if (pageLoader) pageLoader.style.display = "flex";
 
     try {
       const data = await apiRequest("/api/login/verify-token", { token });
       
       if (data.valid) {
-        // টোকেন ভ্যালিড হলে সরাসরি পোর্টালে নিয়ে যাবে
+        // ভ্যালিড হলে সরাসরি পোর্টালে যাবে, লোডার ঘোরার ফাঁকেই পেজ চেঞ্জ হয়ে যাবে
         window.location.href = "/portal/index.html";
       } else {
-        // টোকেন ইনভ্যালিড/এক্সপায়ার হলে টোকেন মুছে ফেলবে এবং লগইন পেজ পরিষ্কার করবে
+        // ইনভ্যালিড হলে টোকেন মুছে লোডার বন্ধ করে দেবে
         localStorage.removeItem("authToken");
-        document.body.style.opacity = "1";
-        document.body.style.pointerEvents = "auto";
+        if (pageLoader) pageLoader.style.display = "none";
       }
     } catch (err) {
+      // কোনো এরর হলেও লোডার বন্ধ করে দেবে
       localStorage.removeItem("authToken");
-      document.body.style.opacity = "1";
-      document.body.style.pointerEvents = "auto";
+      if (pageLoader) pageLoader.style.display = "none";
     }
   }
 });
+
 
 // ==========================================================================
 // Elements
