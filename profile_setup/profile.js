@@ -11,8 +11,8 @@ const emailError = document.getElementById("emailError");
 const successBox = document.getElementById("successBox");
 const submitBtn = form.querySelector('button[type="submit"]');
 
-// আপনার Render-এর ব্যাকএন্ড লিংক এখানে বসান
-const API_BASE = "https://your-render-app-name.onrender.com"; 
+// ⚠️ খুব জরুরি: এখানে আপনার Render-এর আসল লিংকটি বসাতে ভুলবেন না
+const API_BASE = "https://reacharge-app-backend.onrender.com"; 
 
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
@@ -50,18 +50,20 @@ form.addEventListener("submit", async function (e) {
   if (valid) {
     const fullName = `${firstName.value.trim()} ${lastName.value.trim()}`;
     
-    // লোকাল স্টোরেজ থেকে ফোন নম্বর নেওয়া
+    // লোকাল স্টোরেজ থেকে JWT টোকেন এবং ফোন নম্বর নেওয়া
+    const token = localStorage.getItem("authToken");
     const phone = localStorage.getItem("userPhone");
     
-    if (!phone) {
-      alert("Mobile number not found. Please login again.");
+    // টোকেন না থাকলে সিকিউরিটির জন্য লগইনে পাঠিয়ে দেবে
+    if (!token) {
+      alert("Authentication token not found. Please login again.");
       window.location.href = "/index.html";
       return;
     }
 
     // ব্যাকএন্ডে পাঠানোর জন্য ডেটা রেডি করা (ফোন নম্বর সহ)
     const profileData = {
-      phone: phone,
+      phone: phone, // ফায়ারবেসের ডকুমেন্ট আইডির জন্য
       name: fullName,
       email: emailValue
     };
@@ -74,7 +76,9 @@ form.addEventListener("submit", async function (e) {
       const res = await fetch(`${API_BASE}/api/profile/setup`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          // 🟢 এখানে JWT টোকেনটি হেডারে যুক্ত করা হলো
+          "Authorization": `Bearer ${token}` 
         },
         body: JSON.stringify(profileData)
       });
@@ -82,7 +86,7 @@ form.addEventListener("submit", async function (e) {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Something went wrong.");
+        throw new Error(data.error || "Something went wrong in the server.");
       }
 
       // সাকসেস হলে
@@ -92,7 +96,7 @@ form.addEventListener("submit", async function (e) {
       successBox.classList.add("show");
 
       setTimeout(() => {
-        window.location.href = "/portal/index.html";
+        window.location.href = "/portal/index.html"; // পোর্টালে রিডাইরেক্ট
       }, 1500);
 
     } catch (error) {
@@ -110,5 +114,4 @@ form.addEventListener("submit", async function (e) {
       }, 3000);
     }
   }
-
 });
