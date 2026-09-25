@@ -46,37 +46,35 @@ form.addEventListener("submit", async function (e) {
     valid = false;
   }
 
-  // যদি সবকিছু ঠিক থাকে
+   // যদি সবকিছু ঠিক থাকে
   if (valid) {
-    // ফার্স্ট নেম এবং লাস্ট নেম এর মাঝে স্পেস দিয়ে যুক্ত করা হলো
     const fullName = `${firstName.value.trim()} ${lastName.value.trim()}`;
     
+    // লোকাল স্টোরেজ থেকে ফোন নম্বর নেওয়া
+    const phone = localStorage.getItem("userPhone");
+    
+    if (!phone) {
+      alert("Mobile number not found. Please login again.");
+      window.location.href = "/index.html";
+      return;
+    }
+
+    // ব্যাকএন্ডে পাঠানোর জন্য ডেটা রেডি করা (ফোন নম্বর সহ)
     const profileData = {
+      phone: phone,
       name: fullName,
       email: emailValue
     };
 
-    // লোকাল স্টোরেজ থেকে লগইনের সময় সেভ করা টোকেন নেওয়া
-    const token = localStorage.getItem("authToken");
-    
-    if (!token) {
-      alert("Authentication error. Please login again.");
-      window.location.href = "/index.html"; 
-      return;
-    }
-
-    // ১. লোডিং স্টেট চালু করা
     const originalBtnText = submitBtn.innerHTML;
     submitBtn.classList.add("btn-loading");
     submitBtn.disabled = true;
 
     try {
-      // ব্যাকএন্ডে ডেটা পাঠানো
       const res = await fetch(`${API_BASE}/api/profile/setup`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}` 
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(profileData)
       });
@@ -87,13 +85,12 @@ form.addEventListener("submit", async function (e) {
         throw new Error(data.error || "Something went wrong.");
       }
 
-      // ২. সাকসেস স্টেট দেখানো
+      // সাকসেস হলে
       submitBtn.classList.remove("btn-loading");
       submitBtn.classList.add("btn-success");
       submitBtn.innerHTML = "Success!"; 
       successBox.classList.add("show");
 
-      // সাকসেস হওয়ার ১.৫ সেকেন্ড পর পোর্টালে রিডাইরেক্ট করবে
       setTimeout(() => {
         window.location.href = "/portal/index.html";
       }, 1500);
@@ -101,12 +98,11 @@ form.addEventListener("submit", async function (e) {
     } catch (error) {
       console.error("Error updating profile:", error);
       
-      // ৩. ফেইলড স্টেট দেখানো
+      // ফেইল হলে
       submitBtn.classList.remove("btn-loading");
       submitBtn.classList.add("btn-error");
       submitBtn.innerHTML = "Failed!"; 
       
-      // ৩ সেকেন্ড পর বাটনটি আগের অবস্থায় ফিরিয়ে আনা
       setTimeout(() => {
         submitBtn.classList.remove("btn-error");
         submitBtn.innerHTML = originalBtnText;
@@ -114,4 +110,5 @@ form.addEventListener("submit", async function (e) {
       }, 3000);
     }
   }
+
 });
