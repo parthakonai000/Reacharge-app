@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!data.name || data.name.trim() === "" || data.name === "Customer") {
             
             // এখানে আপনার প্রোফাইল সেটআপ পেজের সঠিক পাথ দিন (যেমন: '../profile.html' বা '../my-account.html')
-            window.location.href = './profile_setup/profile.html'; 
+            window.location.href = '../profile_setup/profile.html'; 
         }
 
     } catch (error) {
