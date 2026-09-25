@@ -374,6 +374,7 @@ async function verifyOtp() {
       
       // ব্রাউজারের লোকাল স্টোরেজে JWT টোকেন সেভ করা
       localStorage.setItem("authToken", data.token);
+      localStorage.setItem("userPhone", fullPhoneNumber);
 
       // ইউজার স্ট্যাটাস অনুযায়ী পেজ রিডাইরেক্ট
       setTimeout(() => {
