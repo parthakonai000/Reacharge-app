@@ -713,3 +713,45 @@ p, h2, h3 { margin: 0; }
   }
   .ripple { display: none; }
 }
+
+
+/* Profile Dropdown Styles */
+.profile-dropdown {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 150px;
+  z-index: 1000;
+  display: none; /* ডিফল্টভাবে লুকানো থাকবে */
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.profile-dropdown.show {
+  display: flex; /* বাটনে ক্লিক করলে দেখাবে */
+}
+
+.dropdown-item {
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #333333;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+  background: #f0f0f0;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}

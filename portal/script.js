@@ -252,6 +252,37 @@
 
   // পেজ লোড হওয়ার সাথে সাথে ডেটা ফেচ করা হবে
   document.addEventListener('DOMContentLoaded', fetchDashboardData);
+  /* ---------- Profile Menu & Logout Logic ---------- */
+  const profileBtn = document.getElementById('profileBtn');
+  const profileDropdown = document.getElementById('profileDropdown');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  // প্রোফাইল আইকনে ক্লিক করলে মেনু দেখানো/লুকানো
+  if (profileBtn && profileDropdown) {
+    profileBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // ক্লিক ইভেন্টটি বাইরে যাওয়া আটকাবে
+      profileDropdown.classList.toggle('show');
+    });
+
+    // মেনুর বাইরে কোথাও ক্লিক করলে মেনু বন্ধ হয়ে যাবে
+    document.addEventListener('click', (e) => {
+      if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+        profileDropdown.classList.remove('show');
+      }
+    });
+  }
+
+  // লগআউট বাটনে ক্লিক করার লজিক
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      // লোকাল স্টোরেজ থেকে টোকেন এবং ফোন নম্বর মুছে ফেলা (সেশন শেষ)
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userPhone');
+      
+      // লগইন পেজে রিডাইরেক্ট করা
+      window.location.href = '../index.html';
+    });
+  }
 
 })();
 

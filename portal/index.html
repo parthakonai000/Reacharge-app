@@ -26,9 +26,19 @@
           <button class="icon-btn" type="button" data-action="offers" data-ripple aria-label="Offers and promotions">
             <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.3"/><circle cx="17" cy="17" r="2.3"/></svg>
           </button>
-          <button class="icon-btn" type="button" data-action="profile" data-ripple aria-label="Profile">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-          </button>
+          <!-- Profile Menu Wrapper -->
+<div class="profile-menu-wrap" style="position: relative;">
+  <button class="icon-btn" id="profileBtn" type="button" data-ripple aria-label="Profile">
+    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+  </button>
+
+  <!-- Dropdown Menu -->
+  <div class="profile-dropdown" id="profileDropdown">
+    <a href="../my-account.html" class="dropdown-item">Profile</a>
+    <button id="logoutBtn" class="dropdown-item text-danger">Logout</button>
+  </div>
+</div>
+
         </div>
       </div>
 
