@@ -203,22 +203,22 @@
 
   refresh();
   
-    /* ---------- Fetch Dashboard Data (Name & Balance) ---------- */
+     /* ---------- Fetch Dashboard Data & Check Profile ---------- */
   async function fetchDashboardData() {
-    // HTML এর এলিমেন্টগুলো সিলেক্ট করা
     const userNameEl = $('#userName') || document.querySelector('.greeting__name');
     const balanceEl = $('#balanceValue');
     
     const token = localStorage.getItem('authToken');
 
     if (!token) {
-      // টোকেন না থাকলে লগইন পেজে পাঠিয়ে দিতে পারেন
+      // টোকেন না থাকলে লগইন পেজে পাঠিয়ে দেবে
       window.location.href = '../index.html'; 
       return;
     }
 
     try {
-      const response = await fetch('https://reacharge-app-backend.onrender.com/api/dashboard/user-info', {
+      // আপনার Render-এর আসল API লিংকটি এখানে দিন
+      const response = await fetch('https://your-render-app-name.onrender.com/api/dashboard/user-info', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -230,25 +230,44 @@
 
       const data = await response.json();
       
-      // নাম এবং ব্যালেন্স আপডেট করা
+      // 🟢 নতুন লজিক: চেক করা হচ্ছে ইউজারের নাম আছে কিনা
+      if (!data.name || data.name.trim() === "" || data.name === "Customer") {
+        // নাম না থাকলে সরাসরি প্রোফাইল সেটআপ পেজে পাঠিয়ে দেবে
+        window.location.href = '../my-account.html'; 
+        return; // এখানেই ফাংশন বন্ধ করে দেওয়া হলো, যাতে নিচের কোড আর রান না করে
+      }
+
+      // নাম থাকলে পোর্টালের UI-তে নাম এবং ব্যালেন্স আপডেট করবে
       if (userNameEl) userNameEl.textContent = data.name;
+      
       if (balanceEl) {
-        // ব্যালেন্স ২ ডেসিমেল পয়েন্টে দেখানো (যেমন: 200.00)
-        balanceEl.dataset.value = `₹ ${parseFloat(data.balance).toFixed(2)}`;
+        const formattedBalance = `₹ ${parseFloat(data.balance).toFixed(2)}`;
+        balanceEl.dataset.value = formattedBalance;
         
-        // ব্যালেন্স হাইড করা না থাকলে সাথে সাথে আপডেট দেখানো
         const eyeBtn = $('#toggleBalance');
         const isHidden = eyeBtn && eyeBtn.getAttribute('aria-pressed') === 'true';
+        
         if (!isHidden) {
-          balanceEl.textContent = balanceEl.dataset.value;
+          balanceEl.textContent = formattedBalance;
+        } else {
+          balanceEl.textContent = ' ';
         }
       }
 
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error fetching dashboard data:', error);
       if (userNameEl) userNameEl.textContent = 'Valued Customer';
     }
   }
+
+  // পেজ লোড হওয়ার সাথে সাথে ডেটা ফেচ এবং চেক করা হবে
+  document.addEventListener('DOMContentLoaded', fetchDashboardData);
+
+
+
+
+
+
 
   // পেজ লোড হওয়ার সাথে সাথে ডেটা ফেচ করা হবে
   document.addEventListener('DOMContentLoaded', fetchDashboardData);
