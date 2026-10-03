@@ -203,7 +203,7 @@
 
   refresh();
   
-     /* ---------- Fetch Dashboard Data & Check Profile ---------- */
+  /* ---------- Fetch Dashboard Data (Name & Balance) ---------- */
   async function fetchDashboardData() {
     const userNameEl = $('#userName') || document.querySelector('.greeting__name');
     const balanceEl = $('#balanceValue');
@@ -217,8 +217,8 @@
     }
 
     try {
-      // আপনার Render-এর আসল API লিংকটি এখানে দিন
-      const response = await fetch('https://your-render-app-name.onrender.com/api/dashboard/user-info', {
+      // ⚠️ আপনার Render-এর আসল API লিংকটি এখানে দিন
+      const response = await fetch('https://reacharge-app-backend.onrender.com/api/dashboard/user-info', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -230,14 +230,7 @@
 
       const data = await response.json();
       
-      // 🟢 নতুন লজিক: চেক করা হচ্ছে ইউজারের নাম আছে কিনা
-      if (!data.name || data.name.trim() === "" || data.name === "Customer") {
-        // নাম না থাকলে সরাসরি প্রোফাইল সেটআপ পেজে পাঠিয়ে দেবে
-        window.location.href = '../my-account.html'; 
-        return; // এখানেই ফাংশন বন্ধ করে দেওয়া হলো, যাতে নিচের কোড আর রান না করে
-      }
-
-      // নাম থাকলে পোর্টালের UI-তে নাম এবং ব্যালেন্স আপডেট করবে
+      // নাম এবং ব্যালেন্স আপডেট করা
       if (userNameEl) userNameEl.textContent = data.name;
       
       if (balanceEl) {
@@ -260,7 +253,7 @@
     }
   }
 
-  // পেজ লোড হওয়ার সাথে সাথে ডেটা ফেচ এবং চেক করা হবে
+  // পেজ লোড হওয়ার সাথে সাথে ডেটা ফেচ করা হবে
   document.addEventListener('DOMContentLoaded', fetchDashboardData);
 
 

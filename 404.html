@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#5a20d0">
+  <meta name="robots" content="noindex">
+  <title>Page not found</title>
+  <noscript><meta http-equiv="refresh" content="3;url=/portal/index.html"></noscript>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --violet-700: #5a24c9; --violet-600: #6d31e0; --violet-200: #d9ccfa;
+      --violet-100: #efe9ff; --violet-50: #f7f4ff;
+      --ink: #1d1538; --muted: #6a6383; --line: #e6e0f5;
+      --grad: linear-gradient(135deg, #5a20d0 0%, #7c3aed 55%, #9b6bff 100%);
+      --font: 'Poppins', 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: var(--font); color: var(--ink); background: #ece7fb;
+      line-height: 1.4; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { font: inherit; border: 0; background: none; padding: 0; cursor: pointer; }
+    h1, p { margin: 0; }
+    :focus-visible { outline: 3px solid #b79bff; outline-offset: 2px; }
+
+    .app {
+      position: relative; max-width: 480px; min-height: 100vh; min-height: 100dvh;
+      margin: 0 auto; background: #fff; box-shadow: 0 0 60px rgba(76, 29, 149, .15);
+      display: flex; flex-direction: column;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative; overflow: hidden; text-align: center; color: #fff;
+      padding: calc(env(safe-area-inset-top) + 56px) 24px 96px;
+      background: var(--grad); border-radius: 0 0 40px 40px;
+    }
+    .hero::before, .hero::after {
+      content: ""; position: absolute; border-radius: 50%; background: rgba(255, 255, 255, .08);
+    }
+    .hero::before { top: -80px; right: -60px; width: 220px; height: 220px; }
+    .hero::after  { bottom: -90px; left: -70px; width: 220px; height: 220px; background: rgba(255, 255, 255, .06); }
+
+    .code {
+      position: relative; display: flex; align-items: center; justify-content: center; gap: 4px;
+      font-size: 96px; font-weight: 800; line-height: 1; letter-spacing: -.04em;
+    }
+    .code svg { width: 84px; height: 84px; animation: wobble 3.2s ease-in-out infinite; transform-origin: 50% 90%; }
+    @keyframes wobble { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+
+    .hero__title { position: relative; margin-top: 16px; font-size: 22px; font-weight: 600; letter-spacing: -.01em; }
+    .hero__text { position: relative; margin: 6px auto 0; max-width: 300px; font-size: 13px; opacity: .85; }
+
+    /* Redirect card */
+    .redirect {
+      position: relative; margin: -52px 16px 0; padding: 20px;
+      border: 1px solid var(--line); border-radius: 24px; background: #fff;
+      box-shadow: 0 8px 22px -6px rgba(76, 29, 149, .22); text-align: center;
+    }
+    .ring { position: relative; width: 92px; height: 92px; margin: 0 auto; }
+    .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring__bg { fill: none; stroke: var(--violet-100); stroke-width: 7; }
+    .ring__fg {
+      fill: none; stroke: var(--violet-600); stroke-width: 7; stroke-linecap: round;
+      stroke-dasharray: 264; stroke-dashoffset: 264;
+      transition: stroke-dashoffset 3s linear;
+    }
+    .ring.is-run .ring__fg { stroke-dashoffset: 0; }
+    .ring__num {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      font-size: 32px; font-weight: 700; color: var(--violet-700);
+    }
+    .redirect__msg { margin-top: 14px; font-size: 14px; font-weight: 500; }
+    .redirect__sub { margin-top: 2px; font-size: 12px; color: var(--muted); }
+
+    .actions { display: grid; gap: 10px; margin-top: 18px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px; font-size: 15px; font-weight: 600; border-radius: 16px;
+      transition: transform .15s ease;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .btn--primary { color: #fff; background: var(--grad); box-shadow: 0 8px 16px -6px rgba(109, 49, 224, .65); }
+    .btn--soft { color: var(--violet-700); background: var(--violet-100); }
+
+    .help { margin: auto 16px 0; padding: 28px 0 calc(24px + env(safe-area-inset-bottom)); text-align: center; font-size: 12.5px; color: var(--muted); }
+    .help a { color: var(--violet-600); font-weight: 600; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .code svg { animation: none; }
+    }
+  </style>
+</head>
+<body>
+<main class="app">
+
+  <header class="hero">
+    <div class="code" aria-label="Error 404">
+      <span>4</span>
+      <!-- Phone with a question mark -->
+      <svg viewBox="0 0 64 64" aria-hidden="true" fill="none">
+        <rect x="14" y="4" width="36" height="56" rx="9" fill="#120a2b"/>
+        <rect x="18" y="10" width="28" height="44" rx="5" fill="#fff"/>
+        <circle cx="32" cy="27" r="9" fill="#efe9ff"/>
+        <path d="M28.6 25.5a3.6 3.6 0 117 .8c0 2.2-3.6 2.7-3.6 5M32 34.5h.01" stroke="#6d31e0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="24" y="43" width="16" height="5" rx="2.5" fill="#6d31e0"/>
+      </svg>
+      <span>4</span>
+    </div>
+    <h1 class="hero__title">Page not found</h1>
+    <p class="hero__text">The page you opened doesn't exist or has moved.</p>
+  </header>
+
+  <section class="redirect" aria-live="polite">
+    <div class="ring" id="ring">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="ring__bg" cx="50" cy="50" r="42"/>
+        <circle class="ring__fg" cx="50" cy="50" r="42"/>
+      </svg>
+      <div class="ring__num" id="count">3</div>
+    </div>
+    <p class="redirect__msg" id="msg">Taking you home in 3 seconds</p>
+    <p class="redirect__sub" id="sub">You'll be redirected automatically.</p>
+
+    <div class="actions">
+      <a class="btn btn--primary" id="homeBtn" href="/portal/index.html">
+        <svg viewBox="0 0 24 24"><path d="M3.5 11L12 4l8.5 7M6 9.5V20h12V9.5M10 20v-5h4v5"/></svg>
+        Go home now
+      </a>
+      <button class="btn btn--soft" id="stayBtn" type="button">Stay on this page</button>
+    </div>
+  </section>
+
+  <p class="help">Need help? <a href="../support/support.html">Contact support</a></p>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  // Change this if your home page lives somewhere else
+  var HOME = 'portal/index.html';
+  var SECONDS = 3;
+
+  var ring = document.getElementById('ring');
+  var count = document.getElementById('count');
+  var msg = document.getElementById('msg');
+  var sub = document.getElementById('sub');
+  var stay = document.getElementById('stayBtn');
+  var home = document.getElementById('homeBtn');
+  home.href = HOME;
+
+  var left = SECONDS, timer;
+
+  // Start the ring animation on the next frame so the transition runs
+  requestAnimationFrame(function () { requestAnimationFrame(function () { ring.classList.add('is-run'); }); });
+
+  function tick() {
+    left--;
+    if (left <= 0) {
+      clearInterval(timer);
+      count.textContent = '0';
+      msg.textContent = 'Redirecting…';
+      location.replace(HOME);
+      return;
+    }
+    count.textContent = left;
+    msg.textContent = 'Taking you home in ' + left + (left === 1 ? ' second' : ' seconds');
+  }
+  timer = setInterval(tick, 1000);
+
+  // Let the visitor cancel the redirect
+  stay.addEventListener('click', function () {
+    clearInterval(timer);
+    var fg = ring.querySelector('.ring__fg');
+    fg.style.transition = 'none';
+    fg.style.strokeDashoffset = 264;
+    count.textContent = '404';
+    count.style.fontSize = '22px';
+    msg.textContent = 'Redirect cancelled';
+    sub.textContent = 'Use the button above to go home when you are ready.';
+    stay.hidden = true;
+  });
+})();
+</script>
+</body>
+</html>
